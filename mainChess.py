@@ -82,7 +82,7 @@ def filterFiguresOnBoard(moves):
     return moves
 
 
-def filterFiguresOnFigures(moves):
+def filterFiguresOnFigures(moves, spielstand):
     """ 
     Input:
         moves ist eine Liste von FigureMoves
@@ -106,6 +106,24 @@ def filterFiguresOnFigures(moves):
             movesNoPunch.append(figureMove)
 
     return movesNoPunch, movesPunch, punched
+
+def drawSpielstand(spielstand):
+    belPos = belegtePos(spielstand)
+    for j in range(8):
+        rowString = ''
+        for i in range(8):
+            if [i,j] in belPos:
+                for figure in spielstand:
+                    if figure['pos'] == [i,j]:
+                        if figure['farbe'] == 'w':
+                            rowString += ' B'
+                        else:
+                            rowString += ' b'
+            elif (i + j) % 2 == 0:
+                rowString += ' #'
+            else:
+                rowString += '  '
+        print(rowString)
 
 def move(spielstand):
     spielstandCalc = getSpielstandCalc(spielstand)
