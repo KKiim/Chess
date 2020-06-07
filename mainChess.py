@@ -102,8 +102,9 @@ def filterFiguresOnFigures(moves):
                 if figureMove['farbe'] != figure['farbe']:
                     movesPunch.append(figureMove)
                     punched   .append(figure)
-            else:
-                movesNoPunch.append(figure)
+        if figureMove not in movesPunch
+            movesNoPunch.append(figureMove)
+
     return movesNoPunch, movesPunch, punched
 
 def move(spielstand):
