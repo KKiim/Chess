@@ -10,24 +10,6 @@ def getSpielstandCalc(spielstand):
 
     return spielstand
 
-spielstand = [    
-    {
-        "pos" : ["b","2"],
-        "type": "bauer",
-        "farbe": "w"
-    },
-    {
-        "pos" : ["a","7"],
-        "type": "bauer",
-        "farbe": "b"
-    },
-    {
-        "pos" : ["c","3"],
-        "type": "bauer",
-        "farbe": "b"
-    }
-]
-spielstand =  getSpielstandCalc(spielstand)
 
 
 
@@ -125,12 +107,7 @@ def drawSpielstand(spielstand):
                 rowString += '  '
         print(rowString)
 
-def move(spielstand):
-    spielstandCalc = getSpielstandCalc(spielstand)
 
- #   pawnmove(figure)
-
-    return spielstand
 
 
 

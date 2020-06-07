@@ -5,19 +5,25 @@ def initGame():
     spielstand = [    
         {
             "id"  : "f0",
-            "pos" : ["b","2"],
+            "pos" : ["d","2"],
             "type": "bauer",
             "farbe": "w"
         },
         {
             "id"  : "f1",
-            "pos" : ["a","7"],
+            "pos" : ["e","2"],
+            "type": "bauer",
+            "farbe": "w"
+        },
+        {
+            "id"  : "f2",
+            "pos" : ["d","7"],
             "type": "bauer",
             "farbe": "b"
         },
         {
-            "id"  : "f2",
-            "pos" : ["c","3"],
+            "id"  : "f3",
+            "pos" : ["e","7"],
             "type": "bauer",
             "farbe": "b"
         }
@@ -30,7 +36,7 @@ def white(spielstand):
     return stig.move(spielstand)
 
 def black(spielstand):
-    return kim.move(spielstand,'b')
+    return kim.move(spielstand)
 
 def mainLoop(spielstand, zugNr):
     if zugNr % 2 == 0:
