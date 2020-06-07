@@ -68,6 +68,43 @@ def pawnmove(figure):
         
     return moves
 
+def filterFiguresOnBoard(moves):
+    """ 
+    Input:
+        moves ist eine Liste von FigureMoves
+    Output:
+        moves ist eine Liste von FigureMoves die auf dem Brett stehen
+    """
+    for figureMove in moves:
+        for p in range(2):
+            if (figureMove['pos'][p] > 7 or figureMove['pos'][p] < 0 ):
+                moves.remove(figureMove)
+    return moves
+
+
+def filterFiguresOnFigures(moves):
+    """ 
+    Input:
+        moves ist eine Liste von FigureMoves
+    Output:
+        movesNoPunch Liste von moves ohne Schlagen
+        movesPunch   Liste von moves die eine Figur Schlagen
+        punched      Liste von potentiell geschlagenen Figuren
+    """
+    movesNoPunch = []
+    movesPunch   = []
+    punched      = []
+    for figureMove in moves:
+        for figure in spielstand:
+            posMove = figureMove['pos']
+            pos     = figure['pos']
+            if (posMove == pos): # Zwei Figuren stehen auf dem gleichen Feld
+                if figureMove['farbe'] != figure['farbe']:
+                    movesPunch.append(figureMove)
+                    punched   .append(figure)
+            else:
+                movesNoPunch.append(figure)
+    return movesNoPunch, movesPunch, punched
 
 def move(spielstand):
     spielstandCalc = getSpielstandCalc(spielstand)
