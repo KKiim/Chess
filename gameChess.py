@@ -1,5 +1,6 @@
-import mainChess,stig,kim
+import mainChess,kim
 import time
+import stig2
 
 def initGame():
     spielstand = [
@@ -30,10 +31,13 @@ def initGame():
     ]
     print (spielstand)
     spielstand = mainChess.getSpielstandCalc(spielstand)
+#    spielstand = [{'id': 'f3', 'pos': [4, 5], 'type': 'bauer', 'farbe': 'b'}, {'id': 'f0', 'pos': [3, 3], 'type': 'bauer', 'farbe': 'w'}, {'id': 'f2', 'pos': [3, 4], 'type': 'bauer', 'farbe': 'b'}, {'id': 'f1', 'pos': [4, 3], 'type': 'bauer', 'farbe': 'w'}]
+#    spielstand = [{'id': 'f1', 'pos': [4, 2], 'type': 'bauer', 'farbe': 'w'}, {'id': 'f3', 'pos': [4, 5], 'type': 'bauer', 'farbe': 'b'}, {'id': 'f0', 'pos': [3, 3], 'type': 'bauer', 'farbe': 'w'}, {'id': 'f2', 'pos': [3, 4], 'type': 'bauer', 'farbe': 'b'}]
+#    spielstand = [{'id': 'f0', 'pos': [3,1], 'type': 'bauer', 'farbe' : 'w'},{'id': 'f1', 'pos': [4,1], 'type': 'bauer', 'farbe' : 'w'},{'id': 'f2', 'pos': [5,1], 'type': 'bauer', 'farbe' : 'w'},{'id': 'f3', 'pos': [6,1], 'type': 'bauer', 'farbe' : 'w'},{'id': 'f4', 'pos': [3,6], 'type': 'bauer', 'farbe' : 'b'},{'id': 'f5', 'pos': [4,6], 'type': 'bauer', 'farbe' : 'b'}]
     return spielstand
 
 def white(spielstand):
-    return stig.move(spielstand)
+    return stig2.move(spielstand)
 
 def black(spielstand):
     return kim.move(spielstand, 'b')
@@ -60,6 +64,7 @@ def main():
             continue
         zugNr += 1
         print(zugNr)
+        print(spielstand)
         mainChess.drawSpielstand(spielstand)
         time.sleep(sleep)
 
