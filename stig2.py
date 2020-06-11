@@ -1,7 +1,8 @@
 import mainChess as mc 
 import copy
 
-
+spielstand = [{'id': 'f1', 'pos': [4, 3], 'type': 'bauer', 'farbe': 'w'}, {'id': 'f2', 'pos': [3, 5], 'type': 'bauer', 'farbe': 'b'}, {'id': 
+'f3', 'pos': [3, 4], 'type': 'bauer', 'farbe': 'b'}]
 
 Material = {
     'bauer':1,
@@ -16,7 +17,13 @@ Farbe = 'w'
 Counter_Color = 'b'
 
 
-
+def removing(figure,spiels):
+    fig_id = figure['id']
+    count = 0
+    for fig in spiels:
+        if fig['id'] == figure['id']:
+            spiels.remove(fig)
+    return spiels
 
 def move_on_board(move):
     if move['tgtpos'][0]>7 or move['tgtpos'][0]<0 or move['tgtpos'][1]>7 or move['tgtpos'][1]<0:
@@ -35,6 +42,11 @@ def occ_pos(spiels):
 def spiels_after_move(move,spiels):
     fig_id = move['id']
     spielscopy = copy.deepcopy(spiels)
+    
+    if move['take']:
+        for figure in spielscopy:
+            if figure['pos'] == move['tgtpos']:
+                removing(figure,spielscopy)
     for figure in spielscopy:
         if figure['id'] == fig_id:
             figure['pos'] = move['tgtpos']
@@ -62,14 +74,14 @@ def pawn_move(figure,spiels):
     if f_pos[1] == start:
         move['tgtpos'] = [f_pos[0], f_pos[1]+2*k]
         moves.append(move.copy())
-    
-    if [f_pos[0]+k,f_pos[1]+1,counter_color] in occ_pos(spiels):
-        move['tgtpos'] = [f_pos[0]+k, f_pos[1]+1]
+    occpos = occ_pos(spiels)
+    if [[f_pos[0]+1,f_pos[1]+k],counter_color] in occpos:
+        move['tgtpos'] = [f_pos[0]+1, f_pos[1]+k]
         move['take'] = True
         moves.append(move.copy())
 
-    if [f_pos[0]+k,f_pos[1]-1,counter_color] in occ_pos(spiels):
-        move['tgtpos'] = [f_pos[0]+k, f_pos[1]-1]
+    if [[f_pos[0]-1,f_pos[1]+k],counter_color] in occpos:
+        move['tgtpos'] = [f_pos[0]-1, f_pos[1]+k]
         move['take'] = True
         moves.append(move.copy())
 
@@ -136,13 +148,14 @@ def move(spielstand):
     counts=[]
     all_pos_s = all_pos_spiels(spielstand)
     for spiels in all_pos_s:
-        count = progress_count(spiels)+attack_count(spiels)+3*material_count(spiels)
+        count = progress_count(spiels)+attack_count(spiels)+10*material_count(spiels)
         counts.append(count)
     max_index = counts.index(max(counts))
     return all_pos_s[max_index]
 
 
 
+#print(material_count(spielstand))
 
 
 
