@@ -19,7 +19,7 @@ def belegtePos(spielstand):
         belegtePos.append(figure['pos'])
     return belegtePos
 
-def pawnmove(figure):
+def pawnmove(figure, spielstand):
     moves = [] # liste von figures
     belPos = belegtePos(spielstand)
     if figure['farbe'] == 'w':
@@ -27,9 +27,13 @@ def pawnmove(figure):
     else:
         k = -1
 
-    figureMove = copy.deepcopy(figure)
-    figureMove['pos'][1] = figure['pos'][1] + k
-    moves.append(figureMove)
+    x,y = figure['pos']
+    posPos = [x, y + k]
+    if (posPos not in belPos):
+        figureMove = copy.deepcopy(figure)
+        figureMove['pos'] = posPos
+        moves.append(figureMove)
+
     if figure['pos'][1] == 1:
         figureMove = copy.deepcopy(figure)
         figureMove['pos'][1] = figure['pos'][1] + 2 * k
@@ -76,6 +80,7 @@ def filterFiguresOnFigures(moves, spielstand):
     movesNoPunch = []
     movesPunch   = []
     punched      = []
+    movesNotValid= []
     for figureMove in moves:
         for figure in spielstand:
             posMove = figureMove['pos']
@@ -84,7 +89,9 @@ def filterFiguresOnFigures(moves, spielstand):
                 if figureMove['farbe'] != figure['farbe']:
                     movesPunch.append(figureMove)
                     punched   .append(figure)
-        if figureMove not in movesPunch:
+                else:
+                    movesNotValid.append(figureMove)
+        if figureMove not in movesPunch and figureMove not in movesNotValid:
             movesNoPunch.append(figureMove)
 
     return movesNoPunch, movesPunch, punched
